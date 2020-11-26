@@ -1,0 +1,69 @@
+apply plugin: 'java'
+
+
+group = GROUPID
+version = VERSION
+
+repositories {
+//	if (version.endsWith('SNAPSHOT')) {
+//		maven { url REPOSITORY_URL_SNAPSHOT }
+//	}
+//	if (version.endsWith('RELEASE')) {
+//		maven { url REPOSITORY_URL_RELEASE }
+//	}
+//	maven {
+//		maven { url 'https://maven.aliyun.com/repository/central' }
+//	}
+    mavenCentral()
+}
+
+dependencies {
+	compile("commons-io:commons-io:2.5")
+	compile("org.asciidoctor:asciidoctorj:1.5.8.1")
+}
+
+configure(rootProject){
+	apply from: "${rootDir}/gradle/publications.gradle"
+
+	compileJava {
+		sourceCompatibility = 8
+		targetCompatibility = 8
+		[compileJava]*.options*.encoding = 'UTF-8'
+	}
+
+	tasks.withType(JavaCompile) {
+		options.encoding = "UTF-8"
+		options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+	}
+
+	task sourcesJar(type: Jar, dependsOn: classes) {
+		duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+		archiveClassifier.set("sources")
+		from sourceSets.main.allSource
+		// Don't include or exclude anything explicitly by default. See SPR-12085.
+	}
+
+	task javadocJar(type: Jar) {
+		archiveClassifier.set("javadoc")
+		from javadoc
+	}
+
+	publishing {
+		publications {
+			mavenJava(MavenPublication) {
+				from components.java
+				artifact sourcesJar
+				artifact javadocJar
+			}
+		}
+	}
+
+}
+
+def getRepositoryUsername() {
+	return System.getenv('NEXUS_OSS_USER_NAME') ?: NEXUS_OSS_USER_NAME
+}
+
+def getRepositoryPassword() {
+	return System.getenv('NEXUS_OSS_PASS_WORD') ?: NEXUS_OSS_PASS_WORD
+}
