@@ -1,18 +1,6 @@
 apply plugin: "maven-publish"
 
 publishing {
-
-	repositories {
-		maven {
-			credentials {
-				username getRepositoryUsername()
-				password getRepositoryPassword()
-			}
-			url version.endsWith('SNAPSHOT') ? REPOSITORY_URL_SNAPSHOT : REPOSITORY_URL_RELEASE
-		}
-	}
-
-
 	publications {
 		mavenJava(MavenPublication) {
 			pom {
