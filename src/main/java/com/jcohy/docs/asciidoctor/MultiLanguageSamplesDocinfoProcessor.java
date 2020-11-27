@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.asciidoctor.ast.Document;
-import org.asciidoctor.ast.DocumentRuby;
 import org.asciidoctor.extension.DocinfoProcessor;
 
 /**
@@ -34,10 +33,11 @@ public class MultiLanguageSamplesDocinfoProcessor extends DocinfoProcessor {
 		return "<style type=\"text/css\">" + this.readResourceContent("/multi-language-samples.css") + "</style><script type=\"text/javascript\">" + this.readResourceContent("/multi-language-samples.js") + "</script>";
 	}
 
-	@Override
-	public String process(DocumentRuby documentRuby) {
-		return this.process(this.document(documentRuby));
-	}
+
+//	@Override
+//	public String process(DocumentRuby documentRuby) {
+//		return this.process(this.document(documentRuby));
+//	}
 
 	private String readResourceContent(String resourcePath) {
 		InputStream inputStream = null;

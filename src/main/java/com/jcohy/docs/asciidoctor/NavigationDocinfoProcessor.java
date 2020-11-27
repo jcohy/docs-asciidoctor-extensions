@@ -3,7 +3,6 @@ package com.jcohy.docs.asciidoctor;
 import java.util.Map;
 
 import org.asciidoctor.ast.Document;
-import org.asciidoctor.ast.DocumentRuby;
 import org.asciidoctor.extension.DocinfoProcessor;
 
 /**
@@ -28,8 +27,8 @@ public class NavigationDocinfoProcessor extends DocinfoProcessor {
 		return this.html;
 	}
 
-	@Override
-	public String process(DocumentRuby documentRuby) {
-		return this.process(this.document(documentRuby));
-	}
+//	@Override
+//	public String process(DocumentRuby documentRuby) {
+//		return this.process(this.document(documentRuby));
+//	}
 }

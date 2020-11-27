@@ -3,7 +3,6 @@ package com.jcohy.docs.asciidoctor;
 import java.util.Map;
 
 import org.asciidoctor.ast.Document;
-import org.asciidoctor.ast.DocumentRuby;
 import org.asciidoctor.extension.Postprocessor;
 
 /**
@@ -28,10 +27,10 @@ public class HeaderInjectingPostprocessor extends Postprocessor {
 		return !document.basebackend("html") ? output : output.replaceAll("<div id=\"header\">", this.headerHtml + "<div id=\"header\">");
 	}
 
-	@Override
-	public String process(DocumentRuby documentRuby, String output) {
-		return this.process(this.document(documentRuby), output);
-	}
+//	@Override
+//	public String process(DocumentRuby documentRuby, String output) {
+//		return this.process(this.document(documentRuby), output);
+//	}
 
 	public Object process(Object document, Object output) {
 		return output;

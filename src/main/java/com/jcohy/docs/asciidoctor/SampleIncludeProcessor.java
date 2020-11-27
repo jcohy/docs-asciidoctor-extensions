@@ -16,7 +16,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.asciidoctor.ast.Document;
-import org.asciidoctor.ast.DocumentRuby;
 import org.asciidoctor.extension.IncludeProcessor;
 import org.asciidoctor.extension.PreprocessorReader;
 
@@ -59,14 +58,14 @@ public class SampleIncludeProcessor extends IncludeProcessor {
 		return target.equals(SAMPLE);
 	}
 
-	@Override
-	public void process(DocumentRuby document, PreprocessorReader reader, String target, Map<String, Object> attributes) {
-		this.process(document(document), reader, target, attributes);
-	}
 
+//	public void process(DocumentRuby document, PreprocessorReader reader, String target, Map<String, Object> attributes) {
+//		this.process(document(document), reader, target, attributes);
+//	}
+	@Override
 	public void process(Document document, PreprocessorReader reader, String target, Map<String, Object> attributes) {
 		if (attributes.containsKey("dir") && attributes.containsKey("files")) {
-			String sampleBaseDir = document.getAttr("samples-dir", ".").toString();
+			String sampleBaseDir = document.getAttribute("samples-dir", ".").toString();
 			String sampleDir = attributes.get("dir").toString();
 			List<String> files = Arrays.asList(attributes.get("files").toString().split(";"));
 			String sampleContent = getSampleContent(sampleBaseDir, sampleDir, files);

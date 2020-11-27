@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.asciidoctor.ast.Document;
-import org.asciidoctor.ast.DocumentRuby;
 import org.asciidoctor.extension.IncludeProcessor;
 import org.asciidoctor.extension.PreprocessorReader;
 
@@ -33,11 +32,8 @@ public class GuidesContributeIncludeProcessor extends IncludeProcessor {
 		return target.equals("contribute");
 	}
 
-	@Override
-	public void process(DocumentRuby document, PreprocessorReader reader, String target, Map<String, Object> attributes) {
-		this.process(this.document(document), reader, target, attributes);
-	}
 
+	@Override
 	public void process(Document document, PreprocessorReader reader, String target, Map<String, Object> attributes) {
 		String contributeMessage = this.getContributeMessage((String)attributes.getOrDefault("guide-name", document.getAttributes().get("guide-name")));
 		reader.push_include(contributeMessage, target, target, 1, attributes);
